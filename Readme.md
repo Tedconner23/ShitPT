@@ -1,63 +1,49 @@
 # ShitPT, its shit!
-# GPT Content Reviewer
+# Project Title: GPT Content Reviewer and Chat Application
 
-The GPT Content Reviewer is a Python script that utilizes OpenAI's GPT-3.5-turbo and code-davinci-002 models to help you plan, consolidate context, and execute coding tasks. It fetches the context from a Git repository and passes it to the coders to generate the required code.
+This project combines the power of OpenAI's GPT-3.5-turbo model with a user-friendly chat interface to create a versatile content reviewer and chat application. The application can review and generate code, rewrite documents, process local repositories, and much more.
+
+## Features
+
+- Review and generate code from task descriptions
+- Process local Git repositories, generating code for specific files
+- Rewrite `.docx`, `.xlsx`, and `.csv` files, retaining their original meaning
+- Perform research on given topics
+- Recommend best approaches for problem-solving
+- Chat-based planning with GPT-3.5-turbo
+- AI wrangling and rerouting of user messages
+- Customizable chat interface with various font and color options
 
 ## Getting Started
 
-### Prerequisites
+To get started with the GPT Content Reviewer and Chat Application, follow these steps:
 
-- Python 3.6 or higher
-- openai Python package
-- python-docx package
-- openpyxl package
-- pandas package
-- GitPython package
-- base256 package
+1. Clone the repository or download the source code.
+2. Install the required dependencies using `pip install -r requirements.txt`.
+3. Replace the placeholder API key in the source code with your own OpenAI API key.
+4. Run the `main.py` script to launch the application.
 
-You can install the required packages using pip:
+## Usage
 
-```bash
-pip install openai python-docx openpyxl pandas GitPython base256
-```
+The chat interface allows you to communicate with the GPT-3.5-turbo model directly. Type your message in the input field and press Enter or click the Send button to submit your message. The model's response will appear in the chat history.
 
-### Usage
+To review and generate code, process local repositories, rewrite documents, or perform research, use the provided functions in the `GPTContentReviewer` class. You can customize these functions and integrate them into your own applications as needed.
 
-1. Set your OpenAI API key in the script:
+## Customization
 
-```python
-openai.api_key = 'your_openai_api_key_here'
-```
+The chat interface can be customized with different fonts and colors. To change the font, open the Settings dialog and select your desired font from the dropdown menu. To change the text color, open the Colors dialog and choose a color using the color picker.
 
-2. Customize the `local_repo_directory`, `planning_question`, and `task_description` variables in the `main()` function:
+## Dependencies
 
-```python
-local_repo_directory = '/path/to/your/local/repository'
-planning_question = "your_planning_question_here"
-task_description = "your_coding_task_description_here"
-```
-
-3. Run the script:
-
-```bash
-python gpt_content_reviewer.py
-```
-
-The script will perform the following steps:
-
-1. Plan with GPT: Send your planning question to GPT-3.5-turbo and receive a planning result.
-2. Consolidate context from the repository: Fetch the context from the local Git repository and consolidate it.
-3. Execute the coding task with the context: Send the task description and context to code-davinci-002 to generate the required code.
-
-The generated code will be printed on the console.
+- Python 3.7+
+- OpenAI
+- Pandas
+- Openpyxl
+- Python-docx
+- GitPython
+- Base256
+- Kivy
 
 ## License
 
-This project is licensed under the MIT License.
-
-## Acknowledgments
-
-- OpenAI for providing the GPT-3.5-turbo and code-davinci-002 models
-```
-
-This README.md file provides an overview of the GPT Content Reviewer script, the prerequisites, usage instructions, and acknowledgments. You can include this file in your project's repository to help others understand and use the script. 😊
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
