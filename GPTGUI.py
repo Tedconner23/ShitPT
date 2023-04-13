@@ -1,60 +1,61 @@
 import tkinter as tk
-from tkinter import ttk, scrolledtext
-from main_script import GPTContentReviewer
+from tkinter import ttk, filedialog, messagebox
+import asyncio
+from gptpy import GPTContentReviewer
 
-class Application(tk.Tk):
-    def __init__(self):
+class GPTContentReviewerGUI(tk.Tk):
+    def __init__(self, content_reviewer_app):
         super().__init__()
-        self.title("GPT Content Reviewer")
-        self.geometry("600x500")
-        self.configure(bg="#f0f0f0")
-
-        self.model_review = "gpt-3.5-turbo"
-        self.model_code = "code-davinci-002"
-        self.reviewer = GPTContentReviewer(self.model_review, self.model_code)
-
+        self.title('GPT Content Reviewer')
+        self.geometry('1280x730')
+        self.content_reviewer = content_reviewer_app
         self.create_widgets()
 
     def create_widgets(self):
-        chat_frame = ttk.Frame(self)
-        chat_frame.grid(column=0, row=0, padx=10, pady=10, sticky=(tk.W, tk.E, tk.N, tk.S))
-        chat_frame.configure(bg="#f0f0f0")
+        self.input_label = tk.Label(self, text='Input:', font=('Arial', 16))
+        self.input_label.grid(row=0, column=0, padx=20, pady=20, sticky='W')
 
-        self.chat_history = scrolledtext.ScrolledText(chat_frame, wrap=tk.WORD, state='disabled', width=50, height=15, bg="#ffffff", fg="#000000", font=("Arial", 12))
-        self.chat_history.grid(column=0, row=0, padx=10, pady=10)
-        self.chat_history.configure(state='normal')
-        self.chat_history.insert(tk.END, "Welcome to GPT Content Reviewer!\n\n")
-        self.chat_history.configure(state='disabled')
+        self.input_text = tk.Text(self, wrap='word', height=12, width=80, font=('Arial', 14))
+        self.input_text.grid(row=1, column=0, columnspan=2, padx=20, pady=20)
 
-        input_frame = ttk.Frame(self)
-        input_frame.grid(column=0, row=1, padx=10, pady=10, sticky=(tk.W, tk.E, tk.N, tk.S))
-        input_frame.configure(bg="#f0f0f0")
+        self.process_button = tk.Button(self, text='Process', font=('Arial', 16), command=self.process_input)
+        self.process_button.grid(row=2, column=0, padx=20, pady=20)
 
-        self.message_input = ttk.Entry(input_frame, width=40, font=("Arial", 12))
-        self.message_input.grid(column=0, row=0, padx=10, pady=10)
-        self.message_input.bind('<Return>', self.submit_message)
+        self.progress_bar = ttk.Progressbar(self, orient='horizontal', length=200, mode='indeterminate')
+        self.progress_bar.grid(row=2, column=1, padx=20, pady=20)
 
-        submit_button = ttk.Button(input_frame, text="Submit", command=self.submit_message, style="Submit.TButton")
-        submit_button.grid(column=1, row=0, padx=10, pady=10)
+        self.output_label = tk.Label(self, text='Output:', font=('Arial', 16))
+        self.output_label.grid(row=3, column=0, padx=20, pady=20)
 
-        self.style = ttk.Style()
-        self.style.configure("Submit.TButton", font=("Arial", 12))
+        self.output_text = tk.Text(self, wrap='word', height=20, width=80, font=('Arial', 14))
+        self.output_text.config(state='disabled')
+        self.output_text.grid(row=4, column=0, columnspan=2, padx=20, pady=20)
 
-    def submit_message(self, event=None):
-        message = self.message_input.get()
-        if message:
-            self.chat_history.configure(state='normal')
-            self.chat_history.insert(tk.END, f'You: {message}\n')
-            self.chat_history.configure(state='disabled')
+    async def process_and_display_output(self):
+        self.progress_bar.start()
+        user_input = self.input_text.get('1.0', tk.END).strip()
 
-            response = self.reviewer.general_chat(message)
-            self.chat_history.configure(state='normal')
-            self.chat_history.insert(tk.END, f'DIANE: {response}\n')
-            self.chat_history.configure(state='disabled')
+        if not user_input:
+            messagebox.showwarning('Empty Input', 'Please enter some text before processing.')
+            self.progress_bar.stop()
+            return
 
-            self.chat_history.yview(tk.END)
-            self.message_input.delete(0, tk.END)
+        result = await self.content_reviewer.general_chat(user_input)
+        self.progress_bar.stop()
+        self.display_output(result)
 
-if __name__ == "__main__":
-    app = Application()
-    app.mainloop()
+    def process_input(self):
+        self.output_text.config(state='normal')
+        self.output_text.delete('1.0', tk.END)
+        self.output_text.config(state='disabled')
+        asyncio.create_task(self.process_and_display_output())
+
+    def display_output(self, output):
+        self.output_text.config(state='normal')
+        self.output_text.insert('1.0', output)
+        self.output_text.config(state='disabled')
+
+if __name__ == '__main__':
+    app = GPTContentReviewer('gpt-3.5-turbo', 'code-davinci-002', 'text-davinci-002', 'text-davinci-002')
+    gui = GPTContentReviewerGUI(app)
+    gui.mainloop()
