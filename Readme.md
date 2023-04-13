@@ -1,74 +1,89 @@
-# ShitPT, its shit!
-# Project: GPT Content Reviewer and Chat Application
+# GPT Content Reviewer: An Extensive Guide
 
-This project consists of two Python scripts that work together to create a content review and chat application using OpenAI's GPT-3.5-turbo model. The GPT Content Reviewer script is designed to review content, generate code, and perform various tasks related to content processing. The Chat Application script provides a user interface for users to interact with the GPT Content Reviewer.
+The GPT Content Reviewer is a comprehensive Python application that leverages OpenAI's GPT-3.5-turbo model to review, process, and generate code based on user inputs. It features an intuitive GUI interface for seamless interaction with users.
 
-## Table of Contents
+## Prerequisites
 
-- [Dependencies](#dependencies)
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
-
-## Dependencies
-
-- Python 3.7 or higher
-- [openai](https://github.com/openai/openai) - OpenAI API client library
-- [pandas](https://pandas.pydata.org/) - Data manipulation library
-- [docx](https://python-docx.readthedocs.io/en/latest/) - Python library for creating and updating Microsoft Word files
-- [openpyxl](https://openpyxl.readthedocs.io/en/stable/) - Python library for reading and writing Excel files
-- [GitPython](https://gitpython.readthedocs.io/en/stable/) - Python library for interacting with Git repositories
-- [base256](https://pypi.org/project/base256/) - Base256 encoding and decoding library
-- [kivy](https://kivy.org/#home) - Python library for building multi-touch applications
-- [Pillow](https://pillow.readthedocs.io/en/stable/) - Python Imaging Library
+Before you can run the GPT Content Reviewer, ensure that you have Python 3.x installed on your system. Download the appropriate version from the [official Python website](https://www.python.org/downloads/).
 
 ## Installation
 
-1. Install Python 3.7 or higher if you haven't already. You can download it from the [official Python website](https://www.python.org/downloads/).
+Follow these steps to set up the GPT Content Reviewer on your macOS or Linux system:
 
-2. Clone this repository to your local machine:
+### 1. Clone the repository
 
-   ```
-   git clone https://github.com/yourusername/yourrepository.git
-   ```
+Clone the repository using git:
 
-3. Navigate to the project directory:
+```bash
+git clone https://github.com/yourusername/gpt-content-reviewer.git
+```
 
-   ```
-   cd yourrepository
-   ```
+### 2. Install dependencies
 
-4. Create a virtual environment and activate it:
+Navigate to the project directory:
 
-   ```
-   python -m venv venv
-   source venv/bin/activate  # For Linux and macOS
-   venv\Scripts\activate  # For Windows
-   ```
+```bash
+cd gpt-content-reviewer
+```
 
-5. Install the required packages:
+Create a virtual environment (optional but recommended):
 
-   ```
-   pip install openai pandas python-docx openpyxl GitPython base256 kivy Pillow
-   ```
+macOS/Linux:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Install the required packages using pip:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Set up OpenAI API Key
+
+To use OpenAI's GPT-3.5-turbo model, you need an API key from OpenAI. If you don't have one already, sign up at [OpenAI](https://beta.openai.com/signup/) and obtain an API key.
+
+Once you have your API key, open `gptpy.py` in a text editor and replace `'your_openai_api_key_here'` with your actual API key:
+
+```python
+openai.api_key = 'your_openai_api_key_here'
+```
+
+Save the file and close the text editor.
+
+### 4. Run the application
+
+You're now ready to run the GPT Content Reviewer. Start the GUI application by running:
+
+```bash
+python gptgui.py
+```
+
+A window should appear, allowing you to interact with the GPT Content Reviewer.
 
 ## Usage
 
-1. Set your OpenAI API key as an environment variable:
+1. Launch the GPT Content Reviewer by running `python gptgui.py`. A window should appear, allowing you to interact with the GPT Content Reviewer.
+2. Enter your input in the "" field. This could be a question, a prompt for generating code, or any text you'd like to process using the GPT-3.5-turbo model.
+3. Click the "Process" button. The GPT Content Reviewer will process your input and display the output in the "Output" field.
 
-   ```
-   export OPENAI_API_KEY="your_openai_api_key_here"  # For Linux and macOS
-   set OPENAI_API_KEY="your_openai_api_key_here"  # For Windows
-   ```
+### Interactions
 
-2. Run the Chat Application script:
+The GPT Content Reviewer uses OpenAI's GPT-3.5-turbo model to process user inputs and generate relevant outputs based on the context of the input. The application interacts with the GPT model through a series of steps:
 
-   ```
-   python chat_app.py
-   ```
+1. **User input**: The user enters their input in the GUI's "Input" field.
+2. **Processing**: When the user clicks "Process," the application sends the input to OpenAI's API, which processes it using the GPT-3.5-turbo model.
+3. **Model response**: The GPT model generates a response based on its understanding of the user's input and returns it to the application.
+4. **Display output**: The application displays this response in the "Output" field for users to see.
 
-3. Interact with the application by typing messages into the message input field and pressing the send button or the Enter key. The GPT Content Reviewer will process your messages and respond accordingly.
+The interactions between users and models are designed to be flexible and adapt to various tasks such as general chat, code generation, content review, research, and more.
+
+During these interactions, different models may be used depending on task requirements (e.g., code-davinci-002 for code-related tasks). Additionally, some tasks may involve multiple interactions between models (e.g., recommending best approaches or researching related topics) before generating the final output.
+
+The GPT Content Reviewer handles these interactions seamlessly, providing users with a simple interface to interact with the powerful GPT-3.5-turbo model.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
