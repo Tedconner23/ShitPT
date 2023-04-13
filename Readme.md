@@ -1,49 +1,74 @@
 # ShitPT, its shit!
-# Project Title: GPT Content Reviewer and Chat Application
+# Project: GPT Content Reviewer and Chat Application
 
-This project combines the power of OpenAI's GPT-3.5-turbo model with a user-friendly chat interface to create a versatile content reviewer and chat application. The application can review and generate code, rewrite documents, process local repositories, and much more.
+This project consists of two Python scripts that work together to create a content review and chat application using OpenAI's GPT-3.5-turbo model. The GPT Content Reviewer script is designed to review content, generate code, and perform various tasks related to content processing. The Chat Application script provides a user interface for users to interact with the GPT Content Reviewer.
 
-## Features
+## Table of Contents
 
-- Review and generate code from task descriptions
-- Process local Git repositories, generating code for specific files
-- Rewrite `.docx`, `.xlsx`, and `.csv` files, retaining their original meaning
-- Perform research on given topics
-- Recommend best approaches for problem-solving
-- Chat-based planning with GPT-3.5-turbo
-- AI wrangling and rerouting of user messages
-- Customizable chat interface with various font and color options
-
-## Getting Started
-
-To get started with the GPT Content Reviewer and Chat Application, follow these steps:
-
-1. Clone the repository or download the source code.
-2. Install the required dependencies using `pip install -r requirements.txt`.
-3. Replace the placeholder API key in the source code with your own OpenAI API key.
-4. Run the `main.py` script to launch the application.
-
-## Usage
-
-The chat interface allows you to communicate with the GPT-3.5-turbo model directly. Type your message in the input field and press Enter or click the Send button to submit your message. The model's response will appear in the chat history.
-
-To review and generate code, process local repositories, rewrite documents, or perform research, use the provided functions in the `GPTContentReviewer` class. You can customize these functions and integrate them into your own applications as needed.
-
-## Customization
-
-The chat interface can be customized with different fonts and colors. To change the font, open the Settings dialog and select your desired font from the dropdown menu. To change the text color, open the Colors dialog and choose a color using the color picker.
+- [Dependencies](#dependencies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
 
 ## Dependencies
 
-- Python 3.7+
-- OpenAI
-- Pandas
-- Openpyxl
-- Python-docx
-- GitPython
-- Base256
-- Kivy
+- Python 3.7 or higher
+- [openai](https://github.com/openai/openai) - OpenAI API client library
+- [pandas](https://pandas.pydata.org/) - Data manipulation library
+- [docx](https://python-docx.readthedocs.io/en/latest/) - Python library for creating and updating Microsoft Word files
+- [openpyxl](https://openpyxl.readthedocs.io/en/stable/) - Python library for reading and writing Excel files
+- [GitPython](https://gitpython.readthedocs.io/en/stable/) - Python library for interacting with Git repositories
+- [base256](https://pypi.org/project/base256/) - Base256 encoding and decoding library
+- [kivy](https://kivy.org/#home) - Python library for building multi-touch applications
+- [Pillow](https://pillow.readthedocs.io/en/stable/) - Python Imaging Library
+
+## Installation
+
+1. Install Python 3.7 or higher if you haven't already. You can download it from the [official Python website](https://www.python.org/downloads/).
+
+2. Clone this repository to your local machine:
+
+   ```
+   git clone https://github.com/yourusername/yourrepository.git
+   ```
+
+3. Navigate to the project directory:
+
+   ```
+   cd yourrepository
+   ```
+
+4. Create a virtual environment and activate it:
+
+   ```
+   python -m venv venv
+   source venv/bin/activate  # For Linux and macOS
+   venv\Scripts\activate  # For Windows
+   ```
+
+5. Install the required packages:
+
+   ```
+   pip install openai pandas python-docx openpyxl GitPython base256 kivy Pillow
+   ```
+
+## Usage
+
+1. Set your OpenAI API key as an environment variable:
+
+   ```
+   export OPENAI_API_KEY="your_openai_api_key_here"  # For Linux and macOS
+   set OPENAI_API_KEY="your_openai_api_key_here"  # For Windows
+   ```
+
+2. Run the Chat Application script:
+
+   ```
+   python chat_app.py
+   ```
+
+3. Interact with the application by typing messages into the message input field and pressing the send button or the Enter key. The GPT Content Reviewer will process your messages and respond accordingly.
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
