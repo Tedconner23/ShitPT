@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GPT-3 Integration</title>
+    <link rel="stylesheet" href="retro_style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>GPT-3 Integration</h1>
+    <div class="main">
+      <div class="chatbox" id="chatbox"></div>
+    </div>
+    <form id="message-form">
+      <div class="input-group">
+        <input type="text" id="message-input" name="user_input" autocomplete="off" placeholder="Type your message...">
+        <button id="submit_button" type="submit">Send</button>
+      </div>
+    </form>
+  </div>
+    <div id="settings-panel" class="settings-panel-hidden">
+        <h2>Settings</h2>
+        <form id="folder-form">
+            <div class="input-group">
+                <label for="folder-path-input">Folder Path:</label>
+                <input type="text" id="folder-path-input" autocomplete="off">
+            </div>
+            <button type="submit">Process Folder</button>
+        </form>
+        <form id="process-csv-form">
+            <div class="input-group">
+                <label for="csv-path-input">CSV Path:</label>
+                <input type="text" id="csv-path-input" autocomplete="off">
+            </div>
+            <button type="submit">Process CSV</button>
+        </form>
+        <button id="settings-close-btn">×</button>
+    </div>
+
+   <script>
+  function addMessage(message, sender) {
+    let chatbox = document.getElementById('chatbox');
+    let messageElement = document.createElement('div');
+    messageElement.className = sender === 'user' ? 'user-message' : 'gpt-message';
+    messageElement.textContent = message;
+    chatbox.appendChild(messageElement);
+    chatbox.scrollTop = chatbox.scrollHeight;
+  }
+
+  $(document).ready(function () {
+    $('#message-form').on('submit', function (event) {
+      event.preventDefault();
+      let user_input = $('#message-input').val();
+      $.ajax({
+        type: 'POST',
+        url: '/AI_chat',
+        contentType: 'application/json',
+        data: JSON.stringify({message: user_input}),
+        success: function (response) {
+          addMessage(response, 'gpt');
+        },
+        error: function (error) {
+          console.log('An error occurred:', error);
+        }
+      });
+      $('#message-input').val('');
+    });
+
+    $("#settings-btn").click(function () {
+      $("#settings-panel").toggleClass("settings-panel-hidden");
+    });
+
+    $("#settings-close-btn").click(function () {
+      $("#settings-panel").toggleClass("settings-panel-hidden");
+    });
+
+    $("#folder-form").on("submit", function (e) {
+      e.preventDefault();
+      const folderPath = $("#folder-path-input").val();
+      $.ajax({
+        url: "/api/process_folder",
+        method: "POST",
+        data: { folder_path: folderPath },
+        success: function (response) {
+          $("#output").html(response);
+        },
+      });
+    });
+
+    $("#process-csv-form").on("submit", function (e) {
+      e.preventDefault();
+      const csvPath = $("#csv-path-input").val();
+      $.ajax({
+        url: "/api/process_csv",
+        method: "POST",
+        data: { csv_path: csvPath },
+        success: function (response) {
+          $("#output").html(response);
+        },
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
