@@ -170,7 +170,7 @@ class Recommender(GPTContentReviewer):
         recommendation_result = await self.gpt_query_with_context(recommendation_question, self.model_recommend)
         return recommendation_result
 
-openai.api_key = "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"
+openai.api_key = "sk-"
 content_reviewer_app = GPTContentReviewer("gpt-3.5-turbo", "code-davinci-002", "text-davinci-002", "text-davinci-002")
 model_review = "gpt-3.5-turbo"
 model_code = "code-davinci-002"
