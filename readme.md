@@ -1,3 +1,4 @@
+# ShitPT, it's shit!
 # GPT Content Reviewer
 
 The GPT Content Reviewer is a powerful and versatile application that integrates OpenAI's GPT-3.5-turbo model to provide various functionalities such as general chat, task processing, file processing, eye-tracking data review, chat-based planning, AI wrangling, and AI rerouting. This application is built using Flask, a lightweight web framework for Python.
